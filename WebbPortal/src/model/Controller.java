@@ -3,6 +3,8 @@ package model;
 import javax.ejb.Stateless;
 
 import dto.BroadBandRequestDTO;
+import dto.FirewallRequestDTO;
+import dto.NatRequestDTO;
 
 @Stateless
 public class Controller {
@@ -19,4 +21,17 @@ public class Controller {
 		System.out.println(bbrDTO.getSpeed());
 	}
 	
+	public void firewallRequest(FirewallRequestDTO fwrDTO){
+		System.out.println(fwrDTO.getAccess());
+		System.out.println(fwrDTO.getDestinationIp());
+		System.out.println(fwrDTO.getDirection());
+		System.out.println(fwrDTO.getPort());
+		System.out.println(fwrDTO.getSourceIp());
+	}
+	
+	public void natRequest(NatRequestDTO nDTO) {
+		System.out.println(nDTO.getDestination());
+		System.out.println(nDTO.getSource());
+		System.out.println(nDTO.getType());
+	}
 }

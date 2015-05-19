@@ -52,24 +52,19 @@
 				<li role="presentation"><a href="#">Contact</a></li>
 			</ul>
 			</nav>
-			<h3 class="text-muted">Welcome to your network, Mattias</h3>
+			<h3 class="text-muted">Welcome to your network</h3>
 		</div>
 
 		<div class="jumbotron">
-			<h1>Configure your firewall</h1>
-			<p class="lead">With firewall from Telia you can control what
-				kind of programs that should be allowed to communicate with your
-				computer</p>
+			<h1>Configure your NAT</h1>
+			<p class="lead">With Nat from Telia you can make translation between ip adresses</p>
 			
 			<h:form>
-				<h:selectOneMenu value="#{firewallBean.direction}">
-					<f:selectItem itemValue="inbound" itemLabel="inbound" />
-					<f:selectItem itemValue="outbound" itemLabel="outbound" />
+				<h:selectOneMenu value="#{natBean.type}">
+					<f:selectItem itemValue="dNAT" itemLabel="dNAT" />
+					<f:selectItem itemValue="sNAT" itemLabel="sNAT" />
 				</h:selectOneMenu>
-				<h:selectOneMenu value="#{firewallBean.access}">
-					<f:selectItem itemValue="deny" itemLabel="deny" />
-					<f:selectItem itemValue="allow" itemLabel="allow" />
-				</h:selectOneMenu>
+
 				<br></br>
 				<br></br>
 				<br></br>
@@ -77,20 +72,15 @@
 				<div class="form-group">
 					<label for="exampleInputEmail1">Source ip</label>
 					<h:inputText type="email" class="form-control" id="source1"
-						pt:placeholder="Enter source ip" value="#{firewallBean.sourceIp}"></h:inputText>
+						pt:placeholder="Enter source ip" value="#{natBean.source}"></h:inputText>
 
 					<label for="exampleInputEmail1">Destination ip</label>
 					<h:inputText type="email" class="form-control" id="dest1"
 						pt:placeholder="Enter destination ip"
-						value="#{firewallBean.destinationIp}"></h:inputText>
-
-					<label for="exampleInputEmail1">Port</label>
-					<h:inputText type="email" class="form-control" id="port1"
-						pt:placeholder="Enter port"
-						value="#{firewallBean.port}"></h:inputText>
+						value="#{natBean.destination}"></h:inputText>
 
 					<h:commandButton type="submit" class="btn btn-default"
-						value="Send order" action="#{firewallBean.submitFirewall}"></h:commandButton>
+						value="Submit" action="#{natBean.submit}"></h:commandButton>
 
 				</div>
 
@@ -98,20 +88,16 @@
 			
 			<table class="table table-bordered">
 			<tr>
-				<th>Direction</th>
-				<th>Access</th>
+				<th>Type</th>
 				<th>Source</th>
 				<th>Destination</th>
-				<th>Port</th>
 				<th></th>
 			</tr>
 <!-- 			example values. Use ui repeat -->
 			<tr>
-				<td>outbound</td>
-				<td>deny</td>
-				<td>0.0.0.0</td>
-				<td>192.168.130.4</td>
-				<td>8080</td>
+				<td>dNAT</td>
+				<td>192.168.130.2</td>
+				<td>192.168.140.2</td>
 				<td><img src="https://cdn1.iconfinder.com/data/icons/CrystalClear/16x16/actions/button_cancel.png" alt="" /></td>
 			</tr>
 			</table>
