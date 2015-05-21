@@ -9,14 +9,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Base64;
 
 import javax.ejb.Stateless;
+
+
+
+import com.sun.faces.util.Cache.Factory;
 
 import util.Util;
 import dto.BroadBandRequestDTO;
 import dto.FirewallRequestDTO;
 import dto.NatRequestDTO;
-
 import dto.ServerRequestDTO;
 
 
@@ -48,6 +54,15 @@ public class Controller {
 		//Vi vill ta reda p√• vart vi befinner oss nu
 		//Util.copy("appendFirewallProduction", "tmpAppendFirewallProduction");
 		parseFirewall(fwrDTO);
+		//Nu skall vi s‰nda skiten...
+//		sendFirewallRequest();
+		try {
+			Util.trustAllCert();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sendFirewallRequest2();
 	}
 
 	public void natRequest(NatRequestDTO nDTO) {
@@ -73,6 +88,7 @@ public class Controller {
 
 		try {
 			writer = new BufferedWriter(new FileWriter(outPath));
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,28 +98,31 @@ public class Controller {
 			while((line = reader.readLine()) != null) {
 
 				if(line.contains("#accept")){
-					writer.write(line.replaceAll("#accept", fwrDTO.getAccess()) + "\n");
-					
-				}
-				else if(line.contains("#name")){
-					writer.write(line.replaceAll("#name", fwrDTO.getName()) + "\n");
-					
-				}
-				else if(line.contains("#sourceIp")){
-					writer.write(line.replaceAll("#sourceIp", fwrDTO.getSourceIp()) +"\n");
-					
-				}
-				else if(line.contains("#destIp")){
-					writer.write(line.replaceAll("#destIp", fwrDTO.getDestinationIp()) + "\n");
-					
-				}
-				else if(line.contains("#port")){
-					writer.write(line.replaceAll("#port", fwrDTO.getPort()) +"\n");
+
+
+					line = (line.replaceAll("#accept", fwrDTO.getAccess()));
+
 
 				}
-				else{
-					writer.write(line + "\n");
+				if(line.contains("#name")){
+
+					line = (line.replaceAll("#name", fwrDTO.getName()));
+
 				}
+				if(line.contains("#sourceIp")){
+
+					line = (line.replaceAll("#sourceIp", fwrDTO.getSourceIp()));
+				}
+				if(line.contains("#destIp")){
+
+					line = (line.replaceAll("#destIp", fwrDTO.getDestinationIp()));
+				}
+				if(line.contains("#port")){
+
+					line = (line.replaceAll("#port", fwrDTO.getPort()));
+				}
+				writer.write(line);
+				writer.newLine();
 
 			}	
 			writer.flush();
@@ -114,12 +133,86 @@ public class Controller {
 
 	}
 
+	private void sendFirewallRequest2(){
+		String url = "http://www.google.com/search?q=mkyong";
+		String username = "admin";
+		String password = "P!ssw0rd";
+		String userPw = username + ":" + password;
+		String encodedAuthorization = new String(Base64.getEncoder().encode(userPw.getBytes()));
+
+		try {
+			URL obj = new URL(Util.getFirewallURL);
+			HttpURLConnection con;
+			con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Content-Type", "application/xml");
+			con.setRequestProperty("Authorization", "Basic "+ encodedAuthorization);
+			
+			int responseCode = con.getResponseCode();
+			System.out.println("\nSending 'GET' request to URL : " + url);
+			System.out.println("Response Code : " + responseCode);
+			
+			BufferedReader in = new BufferedReader(
+			        new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+	 
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+	 
+			//print result
+			System.out.println(response.toString());
+	 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+	    
+	}
 	
+//	private void sendFirewallRequest(){
+//		try{
+//			UsernamePasswordCredentials cred = new UsernamePasswordCredentials("admin", "P!ssw0rd");
+//			CredentialsProvider credsProvider = new BasicCredentialsProvider();
+//			credsProvider.setCredentials(AuthScope.ANY, cred);
+//			CloseableHttpClient httpclient = HttpClients.custom()
+//					.setDefaultCredentialsProvider(credsProvider)
+//					.build();
+//
+//			HttpGet httpget = new HttpGet(Util.getFirewallURL);
+//			CloseableHttpResponse response = httpclient.execute(httpget);
+//			System.out.println("Executing request " + httpget.getRequestLine());
+//
+//
+//			System.out.println("----------------------------------------");
+//			System.out.println(response.getStatusLine());
+//			EntityUtils.consume(response.getEntity());
+//
+//			response.close();
+//
+//
+//
+//			httpclient.close();
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//
+//
+//	}
+
+
+
+
+
 	public void serverRequest(ServerRequestDTO srDTO){
 		System.out.println(srDTO.getNbrCpu());
 		System.out.println(srDTO.getMemory());
 		System.out.println(srDTO.getDiskSpace());
 	}
-	
+
 
 }
