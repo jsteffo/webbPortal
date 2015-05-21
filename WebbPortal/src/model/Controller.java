@@ -16,6 +16,10 @@ import util.Util;
 import dto.BroadBandRequestDTO;
 import dto.FirewallRequestDTO;
 import dto.NatRequestDTO;
+
+import dto.ServerRequestDTO;
+
+
 @Stateless
 public class Controller {
 
@@ -51,6 +55,7 @@ public class Controller {
 		System.out.println(nDTO.getSource());
 		System.out.println(nDTO.getType());
 	}
+
 
 	//Flytta ut denna ur denna klass...
 	//Skall ersätta alla #-markerade ord med ord angivna av user
@@ -108,4 +113,13 @@ public class Controller {
 
 
 	}
+
+	
+	public void serverRequest(ServerRequestDTO srDTO){
+		System.out.println(srDTO.getNbrCpu());
+		System.out.println(srDTO.getMemory());
+		System.out.println(srDTO.getDiskSpace());
+	}
+	
+
 }
