@@ -75,6 +75,13 @@
 				<br></br>
 				<br></br>
 				<div class="form-group">
+				
+				<label for="exampleInputEmail1">Name</label>
+					<h:inputText type="email" class="form-control" id="name1"
+						pt:placeholder="Enter name of rule" value="#{firewallBean.name}"></h:inputText>
+
+				
+				
 					<label for="exampleInputEmail1">Source ip</label>
 					<h:inputText type="email" class="form-control" id="source1"
 						pt:placeholder="Enter source ip" value="#{firewallBean.sourceIp}"></h:inputText>
@@ -98,6 +105,7 @@
 			
 			<table class="table table-bordered">
 			<tr>
+				<th>Name</th>
 				<th>Direction</th>
 				<th>Access</th>
 				<th>Source</th>
@@ -107,6 +115,7 @@
 			</tr>
 <!-- 			example values. Use ui repeat -->
 			<tr>
+				<td>name</td>
 				<td>outbound</td>
 				<td>deny</td>
 				<td>0.0.0.0</td>

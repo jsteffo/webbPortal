@@ -1,21 +1,34 @@
 package dto;
 
 public class FirewallRequestDTO {
-
+	private String name;
 	private String destinationIp;
 	private String sourceIp;
 	private String direction;
 	private String access;
 	private String port;
 	public FirewallRequestDTO(String destinationIp, String sourceIp,
-			String direction, String access, String port) {
+			String direction, String access, String port, String name) {
 		
 		this.destinationIp = destinationIp;
 		this.sourceIp = sourceIp;
 		this.direction = direction;
 		this.access = access;
 		this.port = port;
+		this.name = name;
 	}
+	
+	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	public String getDestinationIp() {
 		return destinationIp;
 	}

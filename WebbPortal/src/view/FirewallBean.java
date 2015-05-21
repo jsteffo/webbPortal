@@ -15,6 +15,8 @@ public class FirewallBean {
 	@Inject
 	Controller controller;
 	
+	private String name;
+
 	private String sourceIp;
 	private String destinationIp;
 	private String port;
@@ -22,7 +24,15 @@ public class FirewallBean {
 	private String access;	//allow or deny
 	
 	public void submitFirewall(){
-		controller.firewallRequest(new FirewallRequestDTO(destinationIp, sourceIp, direction, access, port));
+		controller.firewallRequest(new FirewallRequestDTO(destinationIp, sourceIp, direction, access, port, name));
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String getSourceIp() {
