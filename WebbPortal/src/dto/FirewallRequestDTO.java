@@ -18,6 +18,9 @@ public class FirewallRequestDTO {
 		this.name = name;
 	}
 	
+	public FirewallRequestDTO(){
+		
+	}
 	
 	public String getName() {
 		return name;

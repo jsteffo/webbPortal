@@ -1,45 +1,111 @@
 package view;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import model.NatController;
 import dto.NatRequestDTO;
-import model.Controller;
 
 @ManagedBean
 @SessionScoped
 public class NatBean {
 	
 	@Inject
-	Controller controller;
+	NatController controller;
 	
-	private String type;
-	private String source;
-	private String destination;
+	private List<NatRequestDTO> currentNat;
+	private String type; //dNat or sNat
+	private String domain; //vnic0 or vnic 5
+	private String originalIp;
+	private String originalPort;
+	private String translatedIp;
+	private String translatedPort;
+	private String id;
 	
-	public void submit(){
-		controller.natRequest(new NatRequestDTO(type, source, destination));
+	@PostConstruct
+	public void start(){
+		refreshNat();
 	}
 	
+	public void appendNat(){
+		controller.appendNat(new NatRequestDTO(type, domain, originalIp, originalPort, translatedIp, translatedPort, id));
+		refreshNat();
+	}
+	
+	public void refreshNat(){
+		currentNat = controller.refreshNat();
+	}
+	
+	public void deleteNat(){
+		Map<String, String> param = FacesContext.getCurrentInstance().getExternalContext().
+			getRequestParameterMap();
+	//System.out.println(param.get("delete"));
+		controller.deleteNat(param.get("delete"));
+		refreshNat();
+	}
+	
+
+	public List<NatRequestDTO> getCurrentNat() {
+		return currentNat;
+	}
+
+
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
+		
 	}
-	public String getSource() {
-		return source;
+	public String getDomain() {
+		return domain;
 	}
-	public void setSource(String source) {
-		this.source = source;
+	public void setDomain(String domain) {
+		
+		if(domain.equalsIgnoreCase("uplink")){
+			this.domain = "0";	
+		}
+		if(domain.equalsIgnoreCase("internal")){
+			this.domain = "5";	
+		}
 	}
-	public String getDestination() {
-		return destination;
+	public String getOriginalIp() {
+		return originalIp;
 	}
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setOriginalIp(String originalIp) {
+		this.originalIp = originalIp;
 	}
+	public String getOriginalPort() {
+		return originalPort;
+	}
+	public void setOriginalPort(String originalPort) {
+		this.originalPort = originalPort;
+	}
+	public String getTranslatedIp() {
+		return translatedIp;
+	}
+	public void setTranslatedIp(String translatedIp) {
+		this.translatedIp = translatedIp;
+	}
+	public String getTranslatedPort() {
+		return translatedPort;
+	}
+	public void setTranslatedPort(String translatedPort) {
+		this.translatedPort = translatedPort;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	
 	
 	

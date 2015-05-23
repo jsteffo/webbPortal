@@ -1,11 +1,17 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import dto.FirewallRequestDTO;
 import model.Controller;
+import dto.FirewallRequestDTO;
 
 
 @ManagedBean(name="firewallBean")
@@ -16,15 +22,43 @@ public class FirewallBean {
 	Controller controller;
 	
 	private String name;
-
+	private List<FirewallRequestDTO> currentRules = new ArrayList<>();
 	private String sourceIp;
 	private String destinationIp;
 	private String port;
 	private String direction; //Inbound or outbound
 	private String access;	//allow or deny
+	private String deleteId;
+	
+	
+	@PostConstruct
+	public void start(){
+		refresh();
+	}
+	
+	public void refresh(){
+	
+		currentRules = controller.refreshFirewall();
+	}
+	
+	public void delete(){
+		Map<String,String> params = 
+				FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap();
+		String deleteId = params.get("delete");
+		controller.deleteFirewall(deleteId);
+		refresh();
+		//System.out.println("Id is: " + deleteId);
+	}
+	
+	public List<FirewallRequestDTO> getCurrentRules(){
+
+		return currentRules;
+	}
 	
 	public void submitFirewall(){
 		controller.firewallRequest(new FirewallRequestDTO(destinationIp, sourceIp, direction, access, port, name));
+		refresh();
 	}
 
 	public String getName() {

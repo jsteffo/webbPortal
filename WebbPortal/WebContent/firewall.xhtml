@@ -60,7 +60,7 @@
 			<p class="lead">With firewall from Telia you can control what
 				kind of programs that should be allowed to communicate with your
 				computer</p>
-			
+
 			<h:form>
 				<h:selectOneMenu value="#{firewallBean.direction}">
 					<f:selectItem itemValue="inbound" itemLabel="inbound" />
@@ -75,13 +75,13 @@
 				<br></br>
 				<br></br>
 				<div class="form-group">
-				
-				<label for="exampleInputEmail1">Name</label>
+
+					<label for="exampleInputEmail1">Name</label>
 					<h:inputText type="email" class="form-control" id="name1"
 						pt:placeholder="Enter name of rule" value="#{firewallBean.name}"></h:inputText>
 
-				
-				
+
+
 					<label for="exampleInputEmail1">Source ip</label>
 					<h:inputText type="email" class="form-control" id="source1"
 						pt:placeholder="Enter source ip" value="#{firewallBean.sourceIp}"></h:inputText>
@@ -93,8 +93,7 @@
 
 					<label for="exampleInputEmail1">Port</label>
 					<h:inputText type="email" class="form-control" id="port1"
-						pt:placeholder="Enter port"
-						value="#{firewallBean.port}"></h:inputText>
+						pt:placeholder="Enter port" value="#{firewallBean.port}"></h:inputText>
 
 					<h:commandButton type="submit" class="btn btn-default"
 						value="Send order" action="#{firewallBean.submitFirewall}"></h:commandButton>
@@ -102,31 +101,45 @@
 				</div>
 
 			</h:form>
-			
+
 			<table class="table table-bordered">
-			<tr>
-				<th>Name</th>
-				<th>Direction</th>
-				<th>Access</th>
-				<th>Source</th>
-				<th>Destination</th>
-				<th>Port</th>
-				<th></th>
-			</tr>
-<!-- 			example values. Use ui repeat -->
-			<tr>
-				<td>name</td>
-				<td>outbound</td>
-				<td>deny</td>
-				<td>0.0.0.0</td>
-				<td>192.168.130.4</td>
-				<td>8080</td>
-				<td><img src="https://cdn1.iconfinder.com/data/icons/CrystalClear/16x16/actions/button_cancel.png" alt="" /></td>
-			</tr>
+				<tr>
+					<th>Name</th>
+					<th>Direction</th>
+					<th>Access</th>
+					<th>Source</th>
+					<th>Destination</th>
+					<th>Port</th>
+					<th></th>
+				</tr>
+				<!-- 			Funkar... Nu gäller det bara att vi populerar detta -->
+				<ui:repeat var="o" value="#{firewallBean.currentRules}">
+					<tr>
+						<td>#{o.name}</td>
+						<td>#{o.direction}</td>
+						<td>#{o.access}</td>
+						<td>#{o.sourceIp}</td>
+						<td>#{o.destinationIp}</td>
+						<td>#{o.port}</td>
+						
+						<td>
+						<h:form>
+						<h:commandLink action="#{firewallBean.delete}"> 
+							<f:param name="delete" value="#{o.name}"></f:param>
+    					<h:graphicImage value="https://cdn1.iconfinder.com/data/icons/CrystalClear/16x16/actions/button_cancel.png" alt="delete" />
+						</h:commandLink>
+		
+						
+						</h:form>
+							</td>
+					</tr>
+				</ui:repeat>
 			</table>
-
+			'<h:form>
+			<h:commandButton type="submit" class="btn btn-default"
+				value="refresh" action="#{firewallBean.refresh}"></h:commandButton>
+				</h:form>
 		</div>
-
 
 
 	</div>
