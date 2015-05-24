@@ -68,7 +68,7 @@
 				</h:selectOneMenu>
 				<h:selectOneMenu value="#{firewallBean.access}">
 					<f:selectItem itemValue="deny" itemLabel="deny" />
-					<f:selectItem itemValue="allow" itemLabel="allow" />
+					<f:selectItem itemValue="accept" itemLabel="accept" />
 				</h:selectOneMenu>
 				<br></br>
 				<br></br>
@@ -105,6 +105,7 @@
 			<table class="table table-bordered">
 				<tr>
 					<th>Name</th>
+					<th>Id</th>
 					<th>Direction</th>
 					<th>Access</th>
 					<th>Source</th>
@@ -116,6 +117,7 @@
 				<ui:repeat var="o" value="#{firewallBean.currentRules}">
 					<tr>
 						<td>#{o.name}</td>
+						<td>#{o.id}</td>
 						<td>#{o.direction}</td>
 						<td>#{o.access}</td>
 						<td>#{o.sourceIp}</td>
@@ -125,7 +127,7 @@
 						<td>
 						<h:form>
 						<h:commandLink action="#{firewallBean.delete}"> 
-							<f:param name="delete" value="#{o.name}"></f:param>
+							<f:param name="delete" value="#{o.id}"></f:param>
     					<h:graphicImage value="https://cdn1.iconfinder.com/data/icons/CrystalClear/16x16/actions/button_cancel.png" alt="delete" />
 						</h:commandLink>
 		

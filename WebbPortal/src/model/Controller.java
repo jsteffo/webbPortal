@@ -59,7 +59,9 @@ public class Controller {
 			con.setRequestMethod("DELETE");
 			con.setRequestProperty("Content-Type", "application/xml");
 			con.setRequestProperty("Authorization", "Basic "+ encodedAuthorization);
+			System.out.println(Util.deleteFirewall + id);
 			int responseCode = con.getResponseCode();
+			System.out.println("delete response: " + responseCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -155,10 +157,16 @@ public class Controller {
             for(int i = 0; i<firewallSet.getLength(); i++) {
             	FirewallRequestDTO dto = new FirewallRequestDTO();
             	
+            	expression="name";
+            	Node nameNode = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
+            	if(nameNode != null) {
+            		dto.setName(nameNode.getFirstChild().getNodeValue());
+            	}
+            	
             	expression="id";
             	Node idNode = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
             	if(idNode != null) {
-            		dto.setName(idNode.getFirstChild().getNodeValue());
+            		dto.setId(idNode.getFirstChild().getNodeValue());
             	}
             	expression="action";
             	Node actionNode= (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);

@@ -28,8 +28,7 @@ public class FirewallBean {
 	private String port;
 	private String direction; //Inbound or outbound
 	private String access;	//allow or deny
-	private String deleteId;
-	
+	private String id;
 	
 	@PostConstruct
 	public void start(){
@@ -41,6 +40,16 @@ public class FirewallBean {
 		currentRules = controller.refreshFirewall();
 	}
 	
+	
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public void delete(){
 		Map<String,String> params = 
 				FacesContext.getCurrentInstance().
@@ -57,7 +66,7 @@ public class FirewallBean {
 	}
 	
 	public void submitFirewall(){
-		controller.firewallRequest(new FirewallRequestDTO(destinationIp, sourceIp, direction, access, port, name));
+		controller.firewallRequest(new FirewallRequestDTO(destinationIp, sourceIp, direction, access, port, name, id));
 		refresh();
 	}
 

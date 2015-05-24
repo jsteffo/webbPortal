@@ -7,8 +7,9 @@ public class FirewallRequestDTO {
 	private String direction;
 	private String access;
 	private String port;
+	private String id;
 	public FirewallRequestDTO(String destinationIp, String sourceIp,
-			String direction, String access, String port, String name) {
+			String direction, String access, String port, String name, String id) {
 		
 		this.destinationIp = destinationIp;
 		this.sourceIp = sourceIp;
@@ -16,10 +17,19 @@ public class FirewallRequestDTO {
 		this.access = access;
 		this.port = port;
 		this.name = name;
+		this.id = id;
 	}
 	
 	public FirewallRequestDTO(){
 		
+	}
+	
+	public String getId(){
+		return id;
+	}
+	
+	public void setId(String id){
+		this.id = id;
 	}
 	
 	public String getName() {
