@@ -152,7 +152,7 @@ public class NatController {
             	expression="originalPort";
             	Node originalPortNode = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
             	if(originalPortNode != null) {
-            		dto.setOriginalPort(translatedIpNode.getFirstChild().getNodeValue());	
+            		dto.setOriginalPort(originalPortNode.getFirstChild().getNodeValue());	
             	}
             	
             	expression="translatedPort";

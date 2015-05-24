@@ -17,17 +17,18 @@ import java.security.cert.X509Certificate;
 
 
 public class Util {
-	//windows vs linux
-	public static String restDir = "/home/stefan/.portal/restCalls/"; //linux
+	//windows vs linux vs VM
+	//public static String restDir = "/home/stefan/.portal/restCalls/"; //linux
+	public static String restDir = "/home/kth/.portal/restCalls/"; //VM
 	//public static String restDir = "G:/Programmering/restCalls/"; //windows
-	public static String deleteFirewall = "https://nsx.ddemo.local/api/4.0/edges/edge-19/firewall/config/rules/";
+	public static String deleteFirewall = "https://192.168.130.13/api/4.0/edges/edge-19/firewall/config/rules/"; 
 	public static String edgeId = "edge-19";
-	public static String appendFirewallURL = "https://nsx.ddemo.local/api/4.0/edges/" + edgeId + "/firewall/config/rules";
-	public static String getFirewallURL = "https://nsx.ddemo.local/api/4.0/edges/" + edgeId + "/firewall/config";
+	public static String appendFirewallURL = "https://192.168.130.13/api/4.0/edges/" + edgeId + "/firewall/config/rules";
+	public static String getFirewallURL = "https://192.168.130.13/api/4.0/edges/" + edgeId + "/firewall/config";
 		
-	public static String appendNatUrl = "https://nsx.ddemo.local/api/4.0/edges/" + edgeId + "/nat/config/rules";
-	public static String getNatUrl = "https://nsx.ddemo.local/api/4.0/edges/" + edgeId + "/nat/config";
-	public static String deleteNatUrl = "https://nsx.ddemo.local/api/4.0/edges/" + edgeId + "/nat/config/rules/";
+	public static String appendNatUrl = "https://192.168.130.13/api/4.0/edges/" + edgeId + "/nat/config/rules";
+	public static String getNatUrl = "https://192.168.130.13/api/4.0/edges/" + edgeId + "/nat/config";
+	public static String deleteNatUrl = "https://192.168.130.13/api/4.0/edges/" + edgeId + "/nat/config/rules/";
 	
 	public static void copy(String from, String to){
 		Path FROM = Paths.get(restDir + from);
