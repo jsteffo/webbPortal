@@ -1,21 +1,24 @@
 package view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import util.Util;
 import model.Controller;
 import dto.FirewallRequestDTO;
 
 
 @ManagedBean(name="firewallBean")
-@SessionScoped
+@RequestScoped
 public class FirewallBean {
 
 	@Inject
@@ -32,11 +35,22 @@ public class FirewallBean {
 	
 	@PostConstruct
 	public void start(){
-		refresh();
-	}
+
+		if(!Util.findIsEnabled()){
+						try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("broadBand.xhtml");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			refresh();	
+		}
+		
+	} 
 	
 	public void refresh(){
-	
+
 		currentRules = controller.refreshFirewall();
 	}
 	

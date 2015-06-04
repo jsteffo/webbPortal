@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,6 +37,13 @@ import dto.NatRequestDTO;
 @Stateless
 public class NatController {
 
+	@PostConstruct
+	public void init(){
+		Util.findEdgeId();
+	}
+	
+	
+	
 	public void appendNat(NatRequestDTO dto){
 
 		try {

@@ -1,37 +1,46 @@
 package view;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import model.DhcpController;
 import util.Util;
-import dto.BroadBandRequestDTO;
-import model.Controller;
+import dto.DhcpRequestDTO;
+import dto.NatRequestDTO;
 
 @ManagedBean
 @RequestScoped
-public class ApplicationBean {
+public class DhcpBean {
 
+	private List<DhcpRequestDTO> currentDhcp;
+	
+	@Inject
+	DhcpController controller;
+	
 	@PostConstruct
 	public void start(){
+
 		if(!Util.findIsEnabled()){
-			try {
+						try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("broadBand.xhtml");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-	}
+		
+	} 
 	
-	public void check() {
-	 
+	public void refresh(){
+		currentDhcp = controller.getLeases();
 	}
-
-	
+	public List<DhcpRequestDTO> getCurrentDhcp() {
+		return currentDhcp;
+	}
 }

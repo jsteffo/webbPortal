@@ -57,17 +57,11 @@
 
 		<div class="jumbotron">
 			<h1>Configure your NAT</h1>
-			<p class="lead">With Nat from Telia you can make translation between ip adresses</p>
+			<p class="lead">With Network Address Translation from Sweden-ISP you can allow for applications running on your computer to
+			communicate with the outside world. Enter the information below to customize your network.</p>
 			
 			<h:form>
-				<h:selectOneMenu value="#{natBean.type}">
-					<f:selectItem itemValue="dnat" itemLabel="dNAT" />
-					<f:selectItem itemValue="snat" itemLabel="sNAT" />
-				</h:selectOneMenu>
-				<h:selectOneMenu value="#{natBean.domain}">
-					<f:selectItem itemValue="internal" itemLabel="interal" />
-					<f:selectItem itemValue="uplink" itemLabel="uplink" />
-				</h:selectOneMenu>
+
 				<br></br>
 				<br></br>
 				<br></br>
@@ -100,7 +94,7 @@
 						value="#{natBean.translatedPort}"></h:inputText>
 					
 					
-					<h:commandButton type="submit" class="btn btn-default"
+					<h:commandButton type="submit" class="btn btn-success"
 						value="Submit" action="#{natBean.appendNat}"></h:commandButton>
 					</div>
 				
@@ -149,7 +143,7 @@
 <!-- 			</tr> -->
 			</table>
 			'<h:form>
-			<h:commandButton type="submit" class="btn btn-default"
+			<h:commandButton type="submit" class="btn btn-success"
 				value="refresh" action="#{natBean.refreshNat}"></h:commandButton>
 				</h:form>
 		</div>

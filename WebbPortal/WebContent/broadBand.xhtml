@@ -57,10 +57,9 @@
 
 		<div class="jumbotron">
 			<h1>Broadband</h1>
-			<p class="lead">With broadband from Telia you can surf chooce
-				between speed that ranges from 1mbit/s to over 250mbit/s Whatever
-				your preferences we have an option that suits you! Hoover over the
-				speed to see if that particular option suits you.</p>
+			<p class="lead">With broadband from Sweden-ISP you can choose
+				between speeds that ranges from 1mbit/s to over 500 mbit/s. Enter your information below
+				to instantly enable your internet access.</p>
 
 
 
@@ -87,9 +86,9 @@
 				<!-- 					<h:commandButton styleClass="btn btn-primary" type="button" -->
 				<!-- 						name="options" id="option5" autocomplete="off" value="500 mbit/s" /> -->
 				<!-- 				</div> -->
-         <h:selectOneMenu value="#{applicationBean.speed}">
+         <h:selectOneMenu value="#{broadBandBean.speed}">
             <f:selectItem itemValue="1" itemLabel="1 mbit/s" />
-            <f:selectItem itemValue="10 " itemLabel="10 mbit/s" />
+            <f:selectItem itemValue="10" itemLabel="10 mbit/s" />
             <f:selectItem itemValue="100" itemLabel="100 mbit/s" />
             <f:selectItem itemValue="250" itemLabel="250 mbit/s" />
             <f:selectItem itemValue="500" itemLabel="500 mbit/s" />		
@@ -106,25 +105,25 @@
 				<div class="form-group">
 					<label for="exampleInputEmail1">Email address</label>
 					<h:inputText type="email" class="form-control" id="email1"
-						pt:placeholder="Enter email" value="#{applicationBean.email}"></h:inputText>
+						pt:placeholder="Enter email" value="#{broadBandBean.email}"></h:inputText>
 
 					<label for="exampleInputEmail1">Forename</label>
 					<h:inputText type="email" class="form-control" id="forename1"
 						pt:placeholder="Enter your first name"
-						value="#{applicationBean.firstName}"></h:inputText>
+						value="#{broadBandBean.firstName}"></h:inputText>
 
 					<label for="exampleInputEmail1">Surname</label>
 					<h:inputText type="email" class="form-control" id="surname1"
 						pt:placeholder="Enter your last name"
-						value="#{applicationBean.lastName}"></h:inputText>
+						value="#{broadBandBean.lastName}"></h:inputText>
 
 					<label for="exampleInputEmail1">Creditcard number</label>
 					<h:inputText type="email" class="form-control" id="credit1"
 						pt:placeholder="Enter your credit card number"
-						value="#{applicationBean.creditNbr}"></h:inputText>
-
-					<h:commandButton type="submit" class="btn btn-default"
-						value="Send order" action="#{applicationBean.submitBroadBand}"></h:commandButton>
+						value="#{broadBandBean.creditNbr}"></h:inputText>
+					<br></br>
+					<h:commandButton type="submit" class="btn btn-success"
+						value="Enable internet" action="#{broadBandBean.submitBroadBand}"></h:commandButton>
 
 				</div>
 
@@ -132,11 +131,6 @@
 
 
 			</h:form>
-
-
-
-
-
 		</div>
 
 

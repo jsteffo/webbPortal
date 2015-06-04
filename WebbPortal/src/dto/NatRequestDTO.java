@@ -39,7 +39,7 @@ public class NatRequestDTO {
 		if(domain.equals("0")) {
 			this.domain = "uplink";
 		}
-		if(domain.equals("5")) {
+		if(domain.equals("1")) {
 			this.domain = "internal";
 		}
 	}
