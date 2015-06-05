@@ -20,6 +20,8 @@ public class DhcpBean {
 
 	private List<DhcpRequestDTO> currentDhcp;
 	
+	
+	
 	@Inject
 	DhcpController controller;
 	
@@ -33,6 +35,8 @@ public class DhcpBean {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else{
+			refresh();
 		}
 		
 	} 

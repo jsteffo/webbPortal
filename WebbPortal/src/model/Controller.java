@@ -184,23 +184,40 @@ public class Controller {
             	Node sourceIp = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
             	if(sourceIp != null) {
             		dto.setSourceIp(sourceIp.getFirstChild().getNodeValue());
+            	} else {
+            		dto.setSourceIp("any");
             	}
             	
             	expression="destination/ipAddress";
             	Node destIp = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
             	if(destIp != null) {
             		dto.setDestinationIp(destIp.getFirstChild().getNodeValue());	
+            	} else{
+            		dto.setDestinationIp("any");
             	}
             	
             	expression="application/service/port";
             	Node port = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
             	if(port != null) {
             		dto.setPort(port.getFirstChild().getNodeValue());	
+            	} else {
+            		dto.setPort("any");
             	}
             	
             	expression="ruleType";
             	Node ruleTypeNode = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
             	if(ruleTypeNode.getFirstChild().getNodeValue().equalsIgnoreCase("user")){
+                	expression="ruleTag";
+                	Node ruleTagNode = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
+                	if(ruleTagNode.getFirstChild().getNodeValue().equalsIgnoreCase("1")) {
+                		continue;
+                	}
+                  	if(ruleTagNode.getFirstChild().getNodeValue().equalsIgnoreCase("2")) {
+                		continue;
+                	}
+                  	if(ruleTagNode.getFirstChild().getNodeValue().equalsIgnoreCase("3")) {
+                		continue;
+                	}
             		firewallList.add(dto);
             	}
             }
@@ -246,7 +263,7 @@ public class Controller {
 
 				}
 				if(line.contains("#sourceIp")){
-
+					
 					line = (line.replaceAll("#sourceIp", fwrDTO.getSourceIp()));
 				}
 				if(line.contains("#destIp")){

@@ -52,6 +52,7 @@ public class FirewallRequestDTO {
 		return sourceIp;
 	}
 	public void setSourceIp(String sourceIp) {
+		
 		this.sourceIp = sourceIp;
 	}
 	public String getDirection() {

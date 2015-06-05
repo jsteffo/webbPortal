@@ -172,7 +172,13 @@ public class NatController {
             	expression="ruleType";
             	Node ruleTypeNode = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
             	if(ruleTypeNode.getFirstChild().getNodeValue().equalsIgnoreCase("user")){
-            		natList.add(dto);
+                	expression="ruleTag";
+                	Node ruleTagNode = (Node) xpath.compile(expression).evaluate(firewallSet.item(i), XPathConstants.NODE);
+                	if(!ruleTagNode.getFirstChild().getNodeValue().equalsIgnoreCase("100000")){
+                		//System.out.println(ruleTagNode.getFirstChild().getNodeValue());
+                		natList.add(dto);	
+                	}
+            		
             	}
             }
 
